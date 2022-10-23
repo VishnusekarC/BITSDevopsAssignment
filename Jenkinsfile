@@ -6,8 +6,8 @@ pipeline {
           jdk 'JAVA_HOME'
     }
     parameters {
-         //string(name: 'tomcat_staging', defaultValue: '54.210.39.94', description: 'Staging Server')
-         //string(name: 'tomcat_prod', defaultValue: '18.207.196.102', description: 'Production Server')
+         string(name: 'tomcat_staging', defaultValue: '54.210.39.94', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '18.207.196.102', description: 'Production Server')
          choice(name: 'Environment', choices: ['tomcat_staging', 'tomcat_prod'], description: 'Choose environment')
     }
     environment {
@@ -34,7 +34,7 @@ stages{
         }
 
         stage ('Deployments'){
-            parallel{
+            
                 //when {
                     //stage('Approval') {
                         // no agent, so executors are not used up when waiting for approvals
@@ -73,7 +73,7 @@ stages{
                         }
                     }
                 }
-            }
+            
         }
     }
 }
