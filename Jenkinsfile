@@ -33,7 +33,7 @@ stages{
             }
         }
 
-        stage('Deployments'){
+//        stage('Deployments'){
             //when {
                 //stage('Approval') {
                     // no agent, so executors are not used up when waiting for approvals
@@ -74,4 +74,4 @@ stages{
             }           
         }
     }
-}
+//}
