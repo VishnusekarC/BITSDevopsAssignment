@@ -33,7 +33,7 @@ stages{
             }
         }
 
-        stage ('Deployments'){
+        stage('Deployments'){
             
                 //when {
                     //stage('Approval') {
