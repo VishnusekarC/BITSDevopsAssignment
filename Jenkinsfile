@@ -69,8 +69,9 @@ stages{
                         //bat "echo y | pscp -i C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\Redis-Key.ppk C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat7/webapps"
                     }
                     post {
-                success {
+                        success {
                     echo "Deployed successfully on Prod. See results in http://$params.tomcat_prod:8080/webapp/"
+                        }
                 }
             }
         }
