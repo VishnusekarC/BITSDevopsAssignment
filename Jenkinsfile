@@ -6,8 +6,14 @@ pipeline {
           jdk 'JAVA_HOME'
     }
     parameters {
-         string(name: 'Tomcat Staging', defaultValue: '54.210.39.94', description: 'Staging Server')
-         string(name: 'Tomcat Prod', defaultValue: '44.211.217.14', description: 'Production Server')
+         string(name: 'tomcat_staging', defaultValue: '54.210.39.94', description: 'Staging Server')
+         string(name: 'Tomcat Prod', defaultValue: '18.207.196.102', description: 'Production Server')
+         choice(name: 'Environment', choices: ['Tomcat Staging', 'Tomcat Prod'], description: 'Choosing env')
+    }
+    environment {
+        EMAIL_APPROVER = '2022ht66017@wilp.bits-pilani.ac.in'
+        VM_EMAIL_FROM = 'admin@jenkins'
+        DEPLOY_CREDENTIALS = credentials('deployer_user')
     }
 
     triggers {
@@ -29,15 +35,31 @@ stages{
 
         stage ('Deployments'){
             parallel{
+                //when {
+                    //stage('Approval') {
+        // no agent, so executors are not used up when waiting for approvals
+         //when { changeset "vm-management/create-vm/**"}
+        //agent none
+        //steps {
+        //    script {
+        //        mail from: "$VM_EMAIL_FROM", to: "$VM_SUPPORT_EMAIL", subject: "APPROVAL REQUIRED FOR $JOB_NAME" , body: """Build $BUILD_NUMBER required an approval. Go to $BUILD_URL for more info."""
+        //        def deploymentDelay = input id: 'Deploy', message: 'Deploy to production?', parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'], description: 'Hours to delay deployment?', name: 'deploymentDelay')]
+        //        sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
+        //    }
+        //}
+    //}
+                //}
                 stage ('Deploy to Staging environment'){
                     steps {
-                        echo 'Deployed in Stage'
+                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
                     }
                 }
 
                 stage ("Deploy to Production environment"){
                     steps {
+                        sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
                         echo 'Deployed in Prod'
+                        //bat "echo y | pscp -i C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\Redis-Key.ppk C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
