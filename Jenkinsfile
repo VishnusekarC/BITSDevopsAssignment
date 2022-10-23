@@ -6,9 +6,9 @@ pipeline {
           jdk 'JAVA_HOME'
     }
     parameters {
-         string(name: 'tomcat_staging', defaultValue: '54.210.39.94', description: 'Staging Server')
-         string(name: 'Tomcat Prod', defaultValue: '18.207.196.102', description: 'Production Server')
-         choice(name: 'Environment', choices: ['Tomcat Staging', 'Tomcat Prod'], description: 'Choosing env')
+         //string(name: 'tomcat_staging', defaultValue: '54.210.39.94', description: 'Staging Server')
+         //string(name: 'tomcat_prod', defaultValue: '18.207.196.102', description: 'Production Server')
+         choice(name: 'Environment', choices: ['tomcat_staging', 'tomcat_prod'], description: 'Choose environment')
     }
     environment {
         EMAIL_APPROVER = '2022ht66017@wilp.bits-pilani.ac.in'
@@ -52,15 +52,25 @@ stages{
                 stage ('Deploy to Staging environment'){
                     steps {
                         echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                        //sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
                     }
+                    post {
+                success {
+                    echo "Deployed successfully on Stage. See results in http://$params.tomcat_staging:8080/webapp/"
+                }
+            }
                 }
 
                 stage ("Deploy to Production environment"){
                     steps {
-                        sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
-                        echo 'Deployed in Prod'
+                        
+                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                        sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_prod:/opt/tomcat/webapps/"
                         //bat "echo y | pscp -i C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\Redis-Key.ppk C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat7/webapps"
                     }
+                    post {
+                success {
+                    echo "Deployed successfully on Prod. See results in http://$params.tomcat_prod:8080/webapp/"
                 }
             }
         }
