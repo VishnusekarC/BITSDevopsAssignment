@@ -50,8 +50,10 @@ stages{
             //}
             stage ('Deploy to Staging environment'){
                 steps {
-                    echo "Deploying with ${DEPLOY_CREDENTIALS}"
-                    //sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
+                    sshagent(['login_user']){
+                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
+                    }
                 }
                 post {
                     success {
@@ -62,8 +64,10 @@ stages{
 
             stage ("Deploy to Production environment"){
                 steps {
-                    echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                    sshagent(['login_user']){
+                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
                     sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_prod:/opt/tomcat/webapps/"
+                    }
                     //bat "echo y | pscp -i C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\Redis-Key.ppk C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat7/webapps"
                 }
                 post {
