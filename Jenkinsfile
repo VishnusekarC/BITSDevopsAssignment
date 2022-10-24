@@ -33,9 +33,20 @@ stages{
             }
         }
 
-//        stage('Deployments'){
-            //when {
-                //stage('Approval') {
+        stage ('Deploy to Staging environment'){
+            steps {
+                sshagent(['login_user']){
+                    echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps"
+                }
+            }
+            post {
+                success {
+                    echo "Deployed successfully on Stage. See results in http://$params.tomcat_staging:8080/webapp/"
+                }
+            }
+        }
+        //stage('Approval') {
                     // no agent, so executors are not used up when waiting for approvals
                     //when { changeset "vm-management/create-vm/**"}
                     //agent none
@@ -48,34 +59,21 @@ stages{
                     //}
                 //}
             //}
-            stage ('Deploy to Staging environment'){
-                steps {
-                    sshagent(['login_user']){
-                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
-                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps/"
-                    }
+        stage ("Deploy to Production environment"){
+            steps {
+                input {
+                    message "Proceed with Deployment on Production?"
                 }
-                post {
-                    success {
-                        echo "Deployed successfully on Stage. See results in http://$params.tomcat_staging:8080/webapp/"
-                    }
+                sshagent(['login_user']){
+                    echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_prod:/opt/tomcat/webapps"
                 }
             }
-
-            stage ("Deploy to Production environment"){
-                steps {
-                    sshagent(['login_user']){
-                        echo "Deploying with ${DEPLOY_CREDENTIALS}"
-                    sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_prod:/opt/tomcat/webapps/"
-                    }
-                    //bat "echo y | pscp -i C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\Redis-Key.ppk C:\\Users\\grvtr\\Desktop\\Project\\AlternativeFiles\\*.war ec2-user@${params.tomcat_staging}:/var/lib/tomcat7/webapps"
+            post {
+                success {
+                    echo "Deployed successfully on Prod. See results in http://$params.tomcat_prod:8080/webapp/"
                 }
-                post {
-                    success {
-                        echo "Deployed successfully on Prod. See results in http://$params.tomcat_prod:8080/webapp/"
-                    }
-                }
-            }           
-        }
+            }
+        }           
     }
-//}
+}
