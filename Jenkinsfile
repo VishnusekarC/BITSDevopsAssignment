@@ -35,10 +35,10 @@ stages{
 
         stage ('Deploy to Staging environment'){
             steps {
-                sshagent(['login_user']){
-                    echo "Deploying with ${DEPLOY_CREDENTIALS}"
+                //sshagent(['login_user']){
+                    //echo "Deploying with ${DEPLOY_CREDENTIALS}"
                     sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@$params.tomcat_staging:/opt/tomcat/webapps"
-                }
+                //}
             }
             post {
                 success {
