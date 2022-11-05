@@ -6,14 +6,14 @@ Hello, World! Version 2 test!! New changes to test automatic polling!! Test agai
     
     <BODY background="image.jpg">
     <SCRIPT>
-    function validate() {
-    if (document.forms[0].name.value=="") {
-    alert("Please Enter the Name !");
-    return false;
-    }
-    alert("Welcome!");
-    return true;
-    }
+      function validate() {
+        if (document.forms[0].name.value=="") {
+          alert("Please Enter the Name !");
+          return false;
+        }
+         alert("Welcome!" ,name);
+        return true;
+      }
     </SCRIPT>
     <FORM onSubmit="return validate()">
     <P><BR><BR><BR>
@@ -26,3 +26,4 @@ Hello, World! Version 2 test!! New changes to test automatic polling!! Test agai
     </TABLE>
     </FORM>
     </BODY>
+    
