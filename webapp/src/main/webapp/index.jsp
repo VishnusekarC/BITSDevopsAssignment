@@ -23,10 +23,10 @@
     </SCRIPT>
     <FORM onSubmit="return validate()">
     <P><BR><BR><BR>
-    <FONT COLOR="white" SIZE="4" style="text-align:center;">Enter the Name:
-    <INPUT TYPE="text" NAME="name" size="35" VALUE="">
+    <FONT COLOR="white" SIZE="4" >Enter the Name:
+    <INPUT TYPE="text" NAME="name" size="35" VALUE="" align="middle">
     <BR><BR>
-    <INPUT TYPE=SUBMIT VALUE="Submit" style="text-align:center;">
+    <INPUT TYPE=SUBMIT VALUE="Submit" align="middle">
     <BR>
     <B><FONT COLOR=BLACK SIZE=4>
 </TABLE>
