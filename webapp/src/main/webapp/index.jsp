@@ -1,13 +1,17 @@
-Hello, World! Version 2 test!! New changes to test automatic polling!! Test again!
 <HTML>
     <HEAD>
     <TITLE>BITS Login</TITLE>
     </HEAD>
     
-    <BODY background="image.jpg" 
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;>
+    <BODY>
+    <style>
+        body {
+          background-image:"image.jpg";
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: 100% 100%;
+        }
+        </style>
     <SCRIPT>
       function validate() {
         if (document.forms[0].name.value=="") {
