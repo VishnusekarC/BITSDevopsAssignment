@@ -6,7 +6,7 @@ pipeline {
           jdk 'JAVA_HOME'
     }
     parameters {
-         string(name: 'tomcat_staging', defaultValue: '52.207.225.73', description: 'Staging Server')
+         string(name: 'tomcat_staging', defaultValue: '34.228.23.239', description: 'Staging Server')
          string(name: 'tomcat_prod', defaultValue: '44.201.203.198', description: 'Production Server')
          choice(name: 'Environment', choices: ['tomcat_staging', 'tomcat_prod'], description: 'Choose environment')
     }
