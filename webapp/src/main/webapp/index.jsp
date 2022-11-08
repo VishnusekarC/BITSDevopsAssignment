@@ -7,18 +7,19 @@ Hello, World! Version 2 test!! New changes to test automatic polling!! Test agai
     <BODY background="image.jpg">
     <SCRIPT>
       function validate() {
-        if (document.forms[0].name.value=="") {
+        if (document.getElementById("findname")[0].value=="") {
           alert("Please Enter the Name !");
           return false;
         }
-         alert("Hi"+ name +", Welcome to BITS Pilani!");
+        var user = document.getElementById("findname").value;
+        alert("Hi"+ user +", Welcome to BITS Pilani!");
         return true;
       }
     </SCRIPT>
     <FORM onSubmit="return validate()">
     <P><BR><BR><BR>
     <FONT COLOR="white" SIZE="4">Enter the Name:
-    <INPUT TYPE="text" NAME="name" size="35" VALUE="" >
+    <INPUT TYPE="text" NAME="name" id="findname" size="35" VALUE="" >
     <BR><BR>
     <INPUT TYPE=SUBMIT VALUE="Submit">
     <BR>
