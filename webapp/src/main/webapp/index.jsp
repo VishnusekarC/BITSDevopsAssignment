@@ -23,7 +23,7 @@
     </SCRIPT>
     <FORM onSubmit="return validate()">
     <P><BR><BR><BR>
-    <FONT COLOR="white" SIZE="4" >Enter the Name:
+    <FONT COLOR="BLACK" SIZE="4" >Enter the Name:
     <INPUT TYPE="text" NAME="name" size="35" VALUE="" align="middle">
     <BR><BR>
     <INPUT TYPE=SUBMIT VALUE="Submit" align="middle">
