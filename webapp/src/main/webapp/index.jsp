@@ -11,7 +11,7 @@ Hello, World! Version 2 test!! New changes to test automatic polling!! Test agai
           alert("Please Enter the Name !");
           return false;
         }
-         alert("Welcome!" ,name);
+         alert("Hi"+ name +", Welcome to BITS Pilani!");
         return true;
       }
     </SCRIPT>
