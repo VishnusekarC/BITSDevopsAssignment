@@ -3,14 +3,6 @@
     <TITLE>BITS Login</TITLE>
     </HEAD>
     
-    <BODY background="image.jpg">
-    <style>
-        body {
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          background-size: 100% 100%;
-        }
-    </style>
     <SCRIPT>
       function validate() {
         if (document.forms[0].name.value=="") {
